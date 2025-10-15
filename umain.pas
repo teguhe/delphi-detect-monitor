@@ -36,51 +36,37 @@ uses
 
 procedure TfMain.btnCreateFormClick(Sender: TObject);
 var I: Integer;
+var
+  MonitorCount: Integer;
+  Monitor: TMonitor;
 begin
 
-    { TODO : show on monitor 1 }
-    Application.CreateForm(TfTest, fTest);
+  MonitorCount := Screen.MonitorCount;
 
-    with fTest do
-    begin
-      BoundsRect            := Screen.Monitors[0].BoundsRect;
-      WindowState           :=TWindowState.wsMaximized;
-//      Top                   :=1;
-      Left                  :=0;
-//      Width                 :=Screen.Monitors[0].Width;
-//      Height                 :=Screen.Monitors[0].Height;
+  if MonitorCount < 2 then
+  begin
+    ShowMessage('Monitor ke-2 tidak tersedia.');
+    Exit;
+  end;
 
-      //Position              :=poScreenCenter;
-      Caption               :='Monitor 1';
-      lbTest.Caption        :='Monitor 1';
+  // Ambil monitor ke-2
+  Monitor := Screen.Monitors[0]; // 0 = utama, 1 = monitor kedua
 
-      lbTop.Caption:=fTest.Top.ToString;
-      lbLeft.Caption:=fTest.Left.ToString;
-
-      Show;
-    end;
-
-    { TODO : show on monitor 2 }
+  // Buat Form2 jika belum dibuat
+  if not Assigned(fTest2) then
     Application.CreateForm(TfTest2, fTest2);
+    fTest2.BorderStyle:=bsNone;
+    fTest2.WindowState:=TWindowState.wsMaximized;
+    fTest2.Width:=Screen.Monitors[1].Width;
+    fTest2.Height:=Screen.Monitors[1].Height;
 
-    with fTest2 do
-    begin
-      BoundsRect            := Screen.Monitors[1].BoundsRect;
-      Left                  :=Screen.Monitors[0].Width;
-      WindowState           :=TWindowState.wsMaximized;
-//      Top                   :=0;
+  // Atur posisi Form2 ke monitor kedua
+    fTest2.Left := Monitor.Width;
+    fTest2.Top := Monitor.Top;
 
-//      //Position              :=poScreenCenter;
-//      Width                 :=Screen.Monitors[1].Width;
-//      Height                :=Screen.Monitors[1].Height;
-      Caption               :='Monitor 2';
-      lbTest.Caption        :='Monitor 2';
+  // Tampilkan Form2
+    fTest2.Show;
 
-      lbTop.Caption:=fTest2.Top.ToString;
-      lbLeft.Caption:=fTest2.Left.ToString;
-
-      Show;
-    end;
 
 end;
 
