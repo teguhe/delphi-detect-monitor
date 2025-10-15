@@ -52,4 +52,14 @@ object fMain: TfMain
     TabOrder = 2
     Text = '0'
   end
+  object btnCreateForm: TButton
+    Left = 136
+    Top = 151
+    Width = 129
+    Height = 25
+    Caption = 'btnCreateForm'
+    TabOrder = 3
+    Visible = False
+    OnClick = btnCreateFormClick
+  end
 end
