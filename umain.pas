@@ -60,13 +60,17 @@ begin
     fTest2.Width:=Screen.Monitors[1].Width;
     fTest2.Height:=Screen.Monitors[1].Height;
 
-  // Atur posisi Form2 ke monitor kedua
-    fTest2.Left := Monitor.Width;
-    fTest2.Top := Monitor.Top;
+    fTest2.lbTest.Caption:='Form yang seharusnya muncul di monitor 2';
+    fTest2.lbTop.Caption:='Screen Size = '+Screen.Monitors[1].Width.ToString+'x'+Screen.Monitors[1].Height.ToString;
+                                     ShowMessage(Screen.Monitors[0].Width.ToString);
+
 
   // Tampilkan Form2
     fTest2.Show;
 
+  // Atur posisi Form2 ke monitor kedua
+    fTest2.Left := Screen.Monitors[0].Width;
+    fTest2.Top := Screen.Monitors[0].Top;
 
 end;
 
